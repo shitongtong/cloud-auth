@@ -20,6 +20,11 @@
         id, name, parent_id, url, perms, type, icon, sort, status, create_by, create_time, 
         update_by, update_time
     </sql>
+    <select id="selectAll" resultMap="MenuResultMap">
+        select
+        <include refid="Menu_Column_List" />
+        from menu
+    </select>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="MenuResultMap">
         select 
         <include refid="Menu_Column_List" />
