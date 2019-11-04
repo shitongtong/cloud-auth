@@ -3,6 +3,8 @@ package cn.stt.cloud.auth.service;
 import cn.stt.cloud.auth.entity.Menu;
 import com.github.pagehelper.PageSerializable;
 
+import java.util.List;
+
 /**
  * @ClassName MenuService
  * @Description TODO
@@ -18,4 +20,12 @@ public interface MenuService {
      * @return
      */
     PageSerializable<Menu> pageAll(int pageNo, int pageSize);
+
+    /**
+     * 根据用户名查找菜单列表
+     *
+     * @param userName
+     * @return
+     */
+    List<Menu> findByUserName(String userName);
 }

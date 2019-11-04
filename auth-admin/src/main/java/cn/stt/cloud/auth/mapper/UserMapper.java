@@ -19,4 +19,6 @@ public interface UserMapper {
      * @return
      */
     List<User> selectAll();
+
+    User findByName(String name);
 }

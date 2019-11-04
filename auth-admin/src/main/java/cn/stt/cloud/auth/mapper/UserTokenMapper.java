@@ -11,4 +11,8 @@ public interface UserTokenMapper {
     UserToken selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(UserToken record);
+
+    UserToken findByToken(String token);
+
+    UserToken findByUserId(Integer userId);
 }

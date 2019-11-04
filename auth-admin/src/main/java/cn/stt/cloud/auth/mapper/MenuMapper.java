@@ -19,4 +19,6 @@ public interface MenuMapper {
      * @return
      */
     List<Menu> selectAll();
+
+    List<Menu> findByUserName(String userName);
 }

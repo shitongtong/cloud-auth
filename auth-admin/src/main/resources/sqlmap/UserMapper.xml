@@ -20,6 +20,12 @@
         id, name, password, salt, email, mobile, org_id, user_status, status, create_by, 
         create_time, update_by, update_time
     </sql>
+    <select id="findByName" parameterType="java.lang.String" resultMap="UserResultMap">
+        select
+        <include refid="User_Column_List" />
+        from user
+        where name = #{name}
+    </select>
     <select id="selectAll" resultMap="UserResultMap">
         select
         <include refid="User_Column_List" />

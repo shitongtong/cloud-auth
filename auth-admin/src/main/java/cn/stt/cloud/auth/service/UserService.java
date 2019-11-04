@@ -3,6 +3,7 @@ package cn.stt.cloud.auth.service;
 import cn.stt.cloud.auth.entity.User;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @ClassName UserService
@@ -27,4 +28,14 @@ public interface UserService {
      * @return
      */
     List<User> findAll();
+
+    /**
+     * 根据用户名查找用户的菜单权限标识集合
+     *
+     * @param name
+     * @return
+     */
+    Set<String> findPermissions(String name);
+
+    User findByName(String name);
 }

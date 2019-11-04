@@ -1,5 +1,6 @@
 package cn.stt.cloud.auth.service.impl;
 
+import cn.stt.cloud.auth.constant.Constant;
 import cn.stt.cloud.auth.entity.Menu;
 import cn.stt.cloud.auth.mapper.MenuMapper;
 import cn.stt.cloud.auth.service.MenuService;
@@ -28,5 +29,13 @@ public class MenuServiceImpl implements MenuService {
         PageHelper.startPage(pageNo, pageSize);
         List<Menu> menuList = menuMapper.selectAll();
         return new PageSerializable<>(menuList);
+    }
+
+    @Override
+    public List<Menu> findByUserName(String userName) {
+        if (userName == null || "".equals(userName) || Constant.ADMIN.equalsIgnoreCase(userName)) {
+            return menuMapper.selectAll();
+        }
+        return menuMapper.findByUserName(userName);
     }
 }

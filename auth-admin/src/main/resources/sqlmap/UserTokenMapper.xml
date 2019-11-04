@@ -14,6 +14,18 @@
     <sql id="UserToken_Column_List">
         id, user_id, token, expire_time, create_by, create_time, update_by, update_time
     </sql>
+    <select id="findByUserId" resultMap="UserTokenResultMap">
+        select
+        <include refid="UserToken_Column_List" />
+        from user_token
+        where user_id = #{userId}
+    </select>
+    <select id="findByToken" resultMap="UserTokenResultMap">
+        select
+        <include refid="UserToken_Column_List" />
+        from user_token
+        where token = #{token}
+    </select>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="UserTokenResultMap">
         select 
         <include refid="UserToken_Column_List" />

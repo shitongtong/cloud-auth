@@ -20,6 +20,14 @@
         id, name, parent_id, url, perms, type, icon, sort, status, create_by, create_time, 
         update_by, update_time
     </sql>
+    <select id="findByUserName" parameterType="java.lang.String" resultMap="MenuResultMap">
+        select m.*
+        from menu m, user u, user_role ur, role_menu rm
+        where u.name = #{userName}
+        and u.id = ur.user_id
+        and ur.role_id = rm.role_id
+        and rm.menu_id = m.id
+    </select>
     <select id="selectAll" resultMap="MenuResultMap">
         select
         <include refid="Menu_Column_List" />
