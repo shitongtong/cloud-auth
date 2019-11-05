@@ -44,8 +44,13 @@ public class OAuth2Filter extends AuthenticatingFilter {
 
     @Override
     protected boolean onAccessDenied(ServletRequest servletRequest, ServletResponse servletResponse) throws Exception {
+        HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
+        if ("OPTIONS".equals(httpServletRequest.getMethod())) {
+            // 如果是跨域中复杂请求的预检请求（OPTIONS类型），因为预检请求不带token, 所以不需要验证token
+            return true;
+        }
         // 获取请求token，如果token不存在，直接返回401
-        String token = getRequestToken((HttpServletRequest) servletRequest);
+        String token = getRequestToken(httpServletRequest);
         if (StringUtils.isBlank(token)) {
             HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
             ResponseEntity<Response> responseEntity = ResponseEntity.ok(Response.error(HttpStatus.UNAUTHORIZED.value(), "invalid token"));
