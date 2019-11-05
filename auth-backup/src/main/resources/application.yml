@@ -1,0 +1,15 @@
+server:
+  port: 8080
+
+#日志配置
+logging:
+  config: classpath:logback.xml
+
+# backup datasource
+spring:
+  backup:
+    datasource:
+      host: localhost
+      userName: root
+      password: root
+      database: cloud-auth
