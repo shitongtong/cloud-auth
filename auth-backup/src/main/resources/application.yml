@@ -7,6 +7,12 @@ logging:
 
 # backup datasource
 spring:
+  application:
+    name: auth-backup
+  boot:
+    admin:
+      client:
+        url: "http://localhost:8000"
   backup:
     datasource:
       host: localhost

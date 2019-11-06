@@ -9,8 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>auth-backup</artifactId>
-
+    <artifactId>auth-monitor</artifactId>
     <dependencies>
         <dependency>
             <groupId>cn.stt</groupId>
@@ -25,7 +24,12 @@
         </dependency>
         <dependency>
             <groupId>de.codecentric</groupId>
-            <artifactId>spring-boot-admin-starter-client</artifactId>
+            <artifactId>spring-boot-admin-server</artifactId>
+            <version>2.1.6</version>
+        </dependency>
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-server-ui</artifactId>
             <version>2.1.6</version>
         </dependency>
     </dependencies>

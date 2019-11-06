@@ -11,6 +11,7 @@
         <module>auth-admin</module>
         <module>auth-common</module>
         <module>auth-backup</module>
+        <module>auth-monitor</module>
     </modules>
     <packaging>pom</packaging>
 
