@@ -50,6 +50,11 @@
             <artifactId>spring-boot-admin-starter-client</artifactId>
             <version>2.1.6</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.axet</groupId>
+            <artifactId>kaptcha</artifactId>
+            <version>0.0.9</version>
+        </dependency>
     </dependencies>
 
 

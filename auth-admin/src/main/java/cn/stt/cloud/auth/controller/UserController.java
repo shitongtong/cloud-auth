@@ -7,6 +7,8 @@ import cn.stt.cloud.auth.response.Response;
 import cn.stt.cloud.auth.service.UserService;
 import cn.stt.cloud.auth.service.UserTokenService;
 import cn.stt.cloud.auth.util.PasswordUtil;
+import cn.stt.cloud.auth.util.ShiroUtil;
+import com.google.code.kaptcha.Constants;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -60,6 +62,16 @@ public class UserController {
     public ResponseEntity<Response> login(@RequestBody LoginRequest request) throws IOException {
         String username = request.getUsername();
         String password = request.getPassword();
+        String captcha = request.getCaptcha();
+
+        // 从session中获取之前保存的验证码跟前台传来的验证码进行匹配
+        Object kaptcha = ShiroUtil.getSessionAttribute(Constants.KAPTCHA_SESSION_KEY);
+        if (kaptcha == null) {
+            return ResponseEntity.ok(Response.errorCustom("验证码已失效"));
+        }
+        if (!captcha.equals(kaptcha)) {
+            return ResponseEntity.ok(Response.errorCustom("验证码不正确"));
+        }
 
         // 用户信息
         User user = userService.findByName(username);
