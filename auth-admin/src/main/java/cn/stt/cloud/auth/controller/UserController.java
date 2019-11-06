@@ -56,7 +56,7 @@ public class UserController {
     }
 
     /**
-     * 登录接口
+     * 登录接口 admin/admin
      */
     @PostMapping(value = "/login")
     public ResponseEntity<Response> login(@RequestBody LoginRequest request) throws IOException {
