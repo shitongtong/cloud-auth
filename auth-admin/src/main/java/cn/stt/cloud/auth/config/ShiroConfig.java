@@ -46,6 +46,9 @@ public class ShiroConfig {
         filterMap.put("/webjars/springfox-swagger-ui/**", "anon");
         //验证码
         filterMap.put("/captcha.jpg", "anon");
+        //服务监控
+//        filterMap.put("/actuator", "anon");
+        filterMap.put("/actuator/**", "anon");
         // 其他所有路径交给OAuth2Filter处理
         filterMap.put("/**", "oauth2");
         shiroFilter.setFilterChainDefinitionMap(filterMap);

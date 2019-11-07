@@ -4,3 +4,14 @@ server:
 #日志配置
 logging:
   config: classpath:logback.xml
+
+
+spring:
+  application:
+    name: auth-monitor
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        serviceName: ${spring.application.name}    # 注册到consul的服务名称
