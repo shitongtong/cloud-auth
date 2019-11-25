@@ -1,5 +1,7 @@
 server:
-  port: 8080
+  servlet:
+    context-path: /auth-backup
+  port: 20002
 
 #日志配置
 logging:

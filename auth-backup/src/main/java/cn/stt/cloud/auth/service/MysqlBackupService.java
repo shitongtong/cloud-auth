@@ -1,24 +1,26 @@
 package cn.stt.cloud.auth.service;
 
+import java.io.IOException;
+
 /**
- * @ClassName MysqlBackupService
- * @Description MySql命令行备份恢复服务
- * @Author shitt7
- * @Date 2019/11/5 13:49
- * @Version 1.0
+ * MySql命令行备份恢复服务
+ *
+ * @author Louis
+ * @date Sep 20, 2018
  */
 public interface MysqlBackupService {
+
     /**
      * 备份数据库
      *
-     * @param host             host地址，可以是本机也可以是远程
-     * @param userName         数据库的用户名
-     * @param password         数据库的密码
-     * @param backupFolderPath 备份的路径
-     * @param fileName         备份的文件名
-     * @param database         需要备份的数据库的名称
+     * @param host         host地址，可以是本机也可以是远程
+     * @param userName     数据库的用户名
+     * @param password     数据库的密码
+     * @param savePath     备份的路径
+     * @param fileName     备份的文件名
+     * @param databaseName 需要备份的数据库的名称
      * @return
-     * @throws Exception
+     * @throws IOException
      */
     boolean backup(String host, String userName, String password, String backupFolderPath, String fileName, String database) throws Exception;
 
@@ -33,4 +35,5 @@ public interface MysqlBackupService {
      * @return
      */
     boolean restore(String restoreFilePath, String host, String userName, String password, String database) throws Exception;
+
 }

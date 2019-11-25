@@ -4,22 +4,19 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * @ClassName MySqlBackupRestoreUtil
- * @Description MySQL备份还原工具类
- * @Author shitt7
- * @Date 2019/11/5 9:46
- * @Version 1.0
+ * MySQL备份还原工具类
  */
-public class MySqlBackupRestoreUtil {
+public class MySqlBackupRestoreUtils {
+
     /**
      * 备份数据库
      *
-     * @param host             host地址，可以是本机也可以是远程
-     * @param userName         数据库的用户名
-     * @param password         数据库的密码
-     * @param backupFolderPath 备份的目录路径
-     * @param fileName         备份的文件名
-     * @param database         需要备份的数据库的名称
+     * @param host         host地址，可以是本机也可以是远程
+     * @param userName     数据库的用户名
+     * @param password     数据库的密码
+     * @param savePath     备份的路径
+     * @param fileName     备份的文件名
+     * @param databaseName 需要备份的数据库的名称
      * @return
      * @throws IOException
      */
@@ -30,34 +27,17 @@ public class MySqlBackupRestoreUtil {
             // 如果目录不存在则创建
             backupFolderFile.mkdirs();
         }
-        /*if (!backupFolderPath.endsWith(File.separator) || !backupFolderPath.endsWith("/")) {
+        if (!backupFolderPath.endsWith(File.separator) && !backupFolderPath.endsWith("/")) {
             backupFolderPath = backupFolderPath + File.separator;
-        }*/
-        if (!backupFolderPath.endsWith("/")) {
-            backupFolderPath = backupFolderPath + "/";
         }
         // 拼接命令行的命令
         String backupFilePath = backupFolderPath + fileName;
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("mysqldump --opt ")
-                .append(" --add-drop-database ")
-                .append(" --add-drop-table ");
-        stringBuilder.append(" -h")
-                .append(host)
-                .append(" -u")
-                .append(userName)
-                .append(" -p")
-                .append(password);
-        stringBuilder.append(" --result-file=")
-                .append(backupFilePath)
-                .append(" --default-character-set=utf8 ")
-                .append(database);
+        stringBuilder.append("mysqldump --opt ").append(" --add-drop-database ").append(" --add-drop-table ");
+        stringBuilder.append(" -h").append(host).append(" -u").append(userName).append(" -p").append(password);
+        stringBuilder.append(" --result-file=").append(backupFilePath).append(" --default-character-set=utf8 ").append(database);
         // 调用外部执行 exe 文件的 Java API
-//        String[] command = getCommand(stringBuilder.toString());
-//        System.out.println(Arrays.toString(command));
-        String command = stringBuilder.toString();
-        System.out.println(command);
-        Process process = Runtime.getRuntime().exec(command);
+        Process process = Runtime.getRuntime().exec(getCommand(stringBuilder.toString()));
         if (process.waitFor() == 0) {
             // 0 表示线程正常终止
             System.out.println("数据已经备份到 " + backupFilePath + " 文件中");
@@ -104,30 +84,34 @@ public class MySqlBackupRestoreUtil {
 
     private static String[] getCommand(String command) {
         String os = System.getProperty("os.name");
-        String shell = "/bin/sh";
+        String shell = "/bin/bash";
+        String c = "-c";
         if (os.toLowerCase().startsWith("win")) {
             shell = "cmd";
+            c = "/c";
         }
-        String[] cmd = {shell, "/c", command};
+        String[] cmd = {shell, c, command};
         return cmd;
     }
 
     public static void main(String[] args) throws Exception {
         String host = "localhost";
         String userName = "root";
-        String password = "root";
-        String database = "cloud_auth";
+        String password = "123456";
+        String database = "kitty";
 
         System.out.println("开始备份");
-        String backupFolderPath = "D:/tmp/mysqlbackup";
-        String fileName = "cloud_auth.sql";
-        boolean backup = backup(host, userName, password, backupFolderPath, fileName, database);
-        System.out.println("备份" + backup);
+        String backupFolderPath = "c:/dev/";
+        String fileName = "kitty.sql";
+        backup(host, userName, password, backupFolderPath, fileName, database);
+        System.out.println("备份成功");
 
-        /*System.out.println("开始还原");
-        String restoreFilePath = "D:/tmp/mysqlbackup/cloud_auth.sql";
+        System.out.println("开始还原");
+        String restoreFilePath = "c:/dev/kitty.sql";
         restore(restoreFilePath, host, userName, password, database);
-        System.out.println("还原成功");*/
+        System.out.println("还原成功");
 
     }
+
+
 }
