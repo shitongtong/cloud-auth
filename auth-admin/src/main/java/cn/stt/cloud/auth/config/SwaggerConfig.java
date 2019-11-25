@@ -27,10 +27,10 @@ import java.util.List;
 @EnableSwagger2
 public class SwaggerConfig {
     @Bean
-    public Docket createRestApi() {
+    public Docket createRestApi(){
         // 添加请求参数，我们这里把token作为请求头部参数传入后端
         ParameterBuilder parameterBuilder = new ParameterBuilder();
-        List<Parameter> parameters = new ArrayList<Parameter>();
+        List<Parameter> parameters = new ArrayList<>();
         parameterBuilder.name("token").description("令牌")
                 .modelRef(new ModelRef("string")).parameterType("header").required(false).build();
         parameters.add(parameterBuilder.build());
@@ -43,11 +43,12 @@ public class SwaggerConfig {
 //                .paths(PathSelectors.any()).build();
     }
 
-    private ApiInfo apiInfo() {
-        return new ApiInfoBuilder()
-                .title("cloud-auth API Doc")
-                .description("This is a restful api document of cloud-auth.")
-                .version("1.0")
-                .build();
+    private ApiInfo apiInfo(){
+//    	return new ApiInfoBuilder()
+//    			.title("Auth API Doc")
+//    			.description("This is a restful api document of Kitty.")
+//    			.version("1.0")
+//    			.build();
+        return new ApiInfoBuilder().build();
     }
 }

@@ -1,5 +1,7 @@
 server:
-  port: 8088
+  servlet:
+    context-path: /auth-admin
+  port: 20001
 
 #日志配置
 logging:
@@ -19,7 +21,6 @@ pagehelper:
   reasonable: true
   supportMethodsArguments: true
   params: count=countSql
-  returnPageInfo: check
 
 spring:
   application:
@@ -29,10 +30,39 @@ spring:
       client:
         url: "http://localhost:8000"
   datasource:
-#    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/cloud_auth?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
-    username: root
-    password: root
+    name: druidDataSource
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+#      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/cloud_auth?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+      username: root
+      password: root
+      filters: stat,wall,log4j,config
+      max-active: 100
+      initial-size: 1
+      max-wait: 60000
+      min-idle: 1
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: select 'x'
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+      max-open-prepared-statements: 50
+      max-pool-prepared-statement-per-connection-size: 20
+      #webstat
+      web-stat-filter:
+        enabled: true
+        exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*'
+      #statview
+      stat-view-servlet:
+        enabled: true
+        allow: 127.0.0.1
+        deny: 192.168.0.10
+        login-username: root
+        login-password: root
+        reset-enable: false
   cloud:
     consul:
       host: localhost
